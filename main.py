@@ -1,15 +1,41 @@
-import exemple # Pour pouvoir utiliser les methodes de exemple.py
 import fonctions
+from time import process_time
 
-#print("bonjour")
+# Fonction de test pour la Q6
 
-#print("LISTE DES ETU")
-listeEtu=fonctions.lectureFichierEtu("PrefEtu.txt")
-#print(listeEtu)
+def testGSEtu():
+    for i in range(200,2001,200):
+        sumtime = 0
+        for j in range(10):
+            
+            pref_etu = fonctions.generePrefEtu(i)
+            pref_spe = fonctions.generePrefSpe(i)
 
-#print("LISTE DES SPE")
-listeSpe=fonctions.lectureFichierSpe("PrefSpe.txt")
-#print(listeSpe)
-res = fonctions.gsEtu(listeEtu,listeSpe)
-print(res)
-#exemple.createFichierLP(maListe[0][0],int(maListe[1][0])) #Methode int(): transforme la chaine de caracteres en entier
+            debut = process_time()
+            fonctions.gsEtu(pref_etu,pref_spe)
+            temps = process_time() - debut
+            sumtime+=temps
+        print("Moyenne pour "+ str(i) +" étudiants : " + str(sumtime/10) + " secondes.")
+
+def testGSSpe():
+    for i in range(200,2001,200):
+        sumtime = 0
+        for j in range(10):
+            
+            pref_etu = fonctions.generePrefEtu(i)
+            pref_spe = fonctions.generePrefSpe(i)
+
+            debut = process_time()
+            fonctions.gsSpe(pref_etu,pref_spe)
+            temps = process_time() - debut
+            sumtime+=temps
+        print("Moyenne pour "+ str(i) +" étudiants : " + str(sumtime/10) + " secondes.")
+
+print("Temps de calcul côté étudiant")
+print()
+testGSEtu()
+print()
+print()
+print("Temps de calcul côté master")
+print()
+testGSSpe()
